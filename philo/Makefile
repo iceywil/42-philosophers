@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+         #
+#    By: a <a@student.42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 15:31:15 by wscherre          #+#    #+#              #
-#    Updated: 2024/08/13 18:49:10 by wscherre         ###   ########.fr        #
+#    Updated: 2024/08/20 22:40:04 by a                ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS    =   srcs/philosophers.c \
 			srcs/actions.c \
 			srcs/tools.c \
-			srcs/split.c \
 			srcs/check.c \
+			srcs/monitor.c \
 
 OBJS    =   $(SRCS:.c=.o)
 

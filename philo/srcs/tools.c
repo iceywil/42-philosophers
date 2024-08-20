@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: a <a@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/08/13 14:28:05 by wscherre         ###   ########.fr       */
+/*   Updated: 2024/08/21 01:40:05 by a                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-
-int	ft_atoi(const char *nptr)
-{
-	int	signe;
-	int	i;
-	int	nb;
-
-	i = 0;
-	signe = 1;
-	nb = 0;
-	while ((nptr[i] == ' ') || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '-')
-	{
-		signe = -signe;
-		i++;
-	}
-	else if (nptr[i] == '+')
-		i++;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		nb = nb * 10 + nptr[i] - '0';
-		i++;
-	}
-	return (nb * signe);
-}
-
 
 long	ft_atol(const char *nptr)
 {
@@ -76,21 +49,6 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	ft_free_double_tab(char ***tab)
-{
-	int	i;
-
-	i = 0;
-	while ((*tab)[i])
-	{
-		free((*tab)[i]);
-		(*tab)[i] = NULL;
-		i++;
-	}
-	free(*tab);
-	*tab = NULL;
-}
-
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
@@ -99,3 +57,29 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
+size_t	get_time(void)
+{
+	struct timeval time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void mutex_lock(pthread_mutex_t *mutex)
+{
+	unsigned int err;
+
+	err = pthread_mutex_lock(mutex);
+	if (err)
+		printf("Error locking mutex %s %d\n", err);
+}
+
+void mutex_unlock(pthread_mutex_t *mutex)
+{
+	unsigned int err;
+
+	err = pthread_mutex_unlock(mutex);
+	if (err)
+		printf("Error unlocking mutex %s %d\n", err);
+}
