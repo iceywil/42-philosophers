@@ -6,7 +6,7 @@
 /*   By: a <a@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:43:54 by wscherre          #+#    #+#             */
-/*   Updated: 2024/08/21 01:40:23 by a                ###   ########.fr       */
+/*   Updated: 2024/08/21 17:41:54 by a                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,59 +30,60 @@ typedef struct s_philo
 	pthread_t		t_id;
 	pthread_mutex_t	lock;
 	unsigned int	id;
-	size_t			last_meal;
-	size_t 			start;
+	unsigned long	last_meal;
 	unsigned int	meal_count;
-	
+	unsigned int	eating;
+
 }					t_philo;
 
 typedef struct s_sigma
 {
-	unsigned int	philos_nbr;
+	int				philos_nbr;
+	int				ready;
+
 	unsigned int	t_die;
 	unsigned int	t_eat;
 	unsigned int	t_sleep;
 	unsigned int	eat_nbr;
-	t_philo			philos[200];
-	unsigned int	args[200];
-	pthread_mutex_t	forks[201];
 	unsigned int	dead;
-	pthread_mutex_t lock;
+	unsigned int	args[200];
+	unsigned long	start;
+	t_philo			philos[200];
+	pthread_mutex_t	forks[200];
+	pthread_mutex_t	lock;
+	pthread_t		monitor_id;
+
 }					t_sigma;
 
+int					main(int argc, char **argv);
+int					step_two(t_sigma *alpha);
 int					init_philos(t_sigma *alpha);
 int					create_philos(t_sigma *alpha);
 void				*start(void *arg);
-void				take_forks(t_sigma *philo, unsigned int id);
-int					goodbye(t_sigma *alpha);
+int					take_forks(t_sigma *philo, unsigned int id);
 int					create_monitor(t_sigma *alpha);
 void				*monitor(void *arg);
+void				this_is_sparta(t_sigma *alpha);
+int					dead_check(t_sigma *alpha);
 
-void mutex_lock(pthread_mutex_t *mutex);
-void mutex_unlock(pthread_mutex_t *mutex);
+void				mutex_lock(pthread_mutex_t *mutex);
+void				mutex_unlock(pthread_mutex_t *mutex);
+int					mutex_init(pthread_mutex_t *mutex);
 
 int					check_args(t_sigma *phi, int argc, char **argv);
 int					check_inputs(char **argv);
 int					check_integers(char **argv);
 
-size_t				get_time(void);
-void				action_fork(t_sigma *alpha, unsigned int p);
-void				action_eating(t_sigma *alpha, unsigned int p);
-void				action_sleeping(t_sigma *alpha, unsigned int p);
-void				action_thinking(t_sigma *alpha, unsigned int p);
-void				action_dead(t_sigma *alpha, unsigned int p);
+unsigned long		get_time(void);
+void				action_fork(t_sigma *alpha, unsigned int id);
+void				action_eating(t_sigma *alpha, unsigned int id);
+void				action_sleeping(t_sigma *alpha, unsigned int id);
+void				action_thinking(t_sigma *alpha, unsigned int id);
+void				action_dead(t_sigma *alpha, unsigned int id);
 
-int					ft_atoi(const char *nptr);
 long				ft_atol(const char *nptr);
 size_t				ft_strlen(const char *s);
-void				ft_free_double_tab(char ***tab);
 int					ft_isdigit(int c);
-
-char				**ft_split(char const *s, char c);
-int					ft_split_strings(char **ptr, char const *str, char c);
-void				ft_strrcpy(char *dest, char const *src, char c);
-int					ft_count_strings(char const *str, char c);
-int					ft_iss_sep(char d, char c);
 
 // number_of_philosophers
 // time_to_die

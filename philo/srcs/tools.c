@@ -6,7 +6,7 @@
 /*   By: a <a@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/08/21 01:40:05 by a                ###   ########.fr       */
+/*   Updated: 2024/08/21 04:10:16 by a                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,29 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-size_t	get_time(void)
+unsigned long	get_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "gettimeofday() error\n", 22);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void mutex_lock(pthread_mutex_t *mutex)
+void	mutex_lock(pthread_mutex_t *mutex)
 {
-	unsigned int err;
+	unsigned int	err;
 
 	err = pthread_mutex_lock(mutex);
 	if (err)
-		printf("Error locking mutex %s %d\n", err);
+		printf("Error locking mutex %d\n", err);
 }
 
-void mutex_unlock(pthread_mutex_t *mutex)
+void	mutex_unlock(pthread_mutex_t *mutex)
 {
-	unsigned int err;
+	unsigned int	err;
 
 	err = pthread_mutex_unlock(mutex);
 	if (err)
-		printf("Error unlocking mutex %s %d\n", err);
+		printf("Error unlocking mutex %d\n", err);
 }

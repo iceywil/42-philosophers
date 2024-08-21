@@ -6,27 +6,29 @@
 /*   By: a <a@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/08/20 23:50:13 by a                ###   ########.fr       */
+/*   Updated: 2024/08/21 16:53:42 by a                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int	check_args(t_sigma *phi, int argc, char **argv)
+int	check_args(t_sigma *alpha, int argc, char **argv)
 {
 	if (check_inputs(argv) == 1)
 		return (printf("Wrong Arguments"), 1);
-	phi->philos_nbr = ft_atol(argv[1]);
-	phi->t_die = ft_atol(argv[2]);
-	phi->t_eat = ft_atol(argv[3]);
-	phi->t_sleep = ft_atol(argv[4]);
+	alpha->philos_nbr = ft_atol(argv[1]);
+	alpha->t_die = ft_atol(argv[2]);
+	alpha->t_eat = ft_atol(argv[3]);
+	alpha->t_sleep = ft_atol(argv[4]);
 	if (argc == 6)
-		phi->eat_nbr = ft_atol(argv[5]);
-	else
-		phi->eat_nbr = -1;
-	if (phi->philos_nbr < 0 || phi->t_die < 0 || phi->t_eat < 0
-		|| phi->t_sleep < 0 || (argc == 6 && phi->eat_nbr < 0))
-		return (printf("Arguments must be positive integers\n"), 1);
+		alpha->eat_nbr = ft_atol(argv[5]);
+	else if (argc == 5 || ft_atol(argv[5]) == 0)
+		alpha->eat_nbr = -1;
+	if (alpha->philos_nbr < 0 || alpha->t_die < 0 || alpha->t_eat < 0
+		|| alpha->t_sleep < 0 || (argc == 6 && alpha->eat_nbr < 0))
+		return (printf("Arguments can't be negative integers\n"), 1);
+	if (alpha->philos_nbr == 0)
+		return (printf("Needs at least 1 philosophers\n"), 1);
 	return (0);
 }
 
