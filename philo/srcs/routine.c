@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a <a@student.42.fr>                        +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/08/21 18:45:23 by a                ###   ########.fr       */
+/*   Updated: 2024/08/21 18:18:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	*start(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		while (1)
+		mutex_lock(&philo->alpha->lock);
+		if (philo->alpha->ready == philo->alpha->philos_nbr)
 		{
-			mutex_lock(&philo->alpha->lock);
-			if (philo->alpha->ready == philo->alpha->philos_nbr)
-			{
-				mutex_unlock(&philo->alpha->lock);
-				break ;
-			}
 			mutex_unlock(&philo->alpha->lock);
+			break ;
 		}
+		mutex_unlock(&philo->alpha->lock);
+	}
+	while (1)
+	{
 		if (philo->alpha->philos_nbr == 1)
 			return (action_fork(philo->alpha, philo->id), NULL);
 		if (dead_check(philo->alpha))
