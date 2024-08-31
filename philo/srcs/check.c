@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/08/21 17:27:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/28 17:15:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	check_args(t_sigma *alpha, int argc, char **argv)
 	if (check_inputs(argv) == 1)
 		return (printf("Wrong Arguments\n"), 1);
 	if (ft_atol(argv[1]) < 0 || ft_atol(argv[2]) < 0 || ft_atol(argv[3]) < 0
-		|| ft_atol(argv[4]) < 0 || (argc == 6 && ft_atol(argv[5]) < 0))
-		return (printf("Arguments can't be negative integers\n"), 1);
+		|| ft_atol(argv[4]) < 0 || (argc == 6 && ft_atol(argv[5]) <= 0))
+		return (printf("Wrong Arguments\n"), 1);
 	alpha->philos_nbr = ft_atol(argv[1]);
 	alpha->t_die = ft_atol(argv[2]);
 	alpha->t_eat = ft_atol(argv[3]);
 	alpha->t_sleep = ft_atol(argv[4]);
 	if (argc == 6)
 		alpha->eat_nbr = ft_atol(argv[5]);
-	else if (argc == 5 || ft_atol(argv[5]) == 0)
+	else
 		alpha->eat_nbr = -1;
 	if (alpha->philos_nbr == 0)
 		return (printf("Needs at least 1 philosophers\n"), 1);
