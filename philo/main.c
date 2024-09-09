@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/09/02 17:38:54 by wscherre         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:57:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
 int	main(int argc, char **argv)
 {
@@ -48,7 +48,6 @@ int	init_philos(t_sigma *alpha)
 		philo = &alpha->philos[i];
 		philo->id = i;
 		philo->meal_count = 0;
-		philo->eating = 0;
 		philo->alpha = alpha;
 		philo->last_meal = 0;
 		if (mutex_init(&philo->m_lock))
@@ -104,12 +103,4 @@ int	create_philos(t_sigma *alpha)
 		i++;
 	}
 	return (0);
-}
-
-int	dead_check(t_sigma *alpha)
-{
-	mutex_lock(&alpha->m_lock);
-	if (alpha->dead)
-		return (mutex_unlock(&alpha->m_lock), 1);
-	return (mutex_unlock(&alpha->m_lock), 0);
 }

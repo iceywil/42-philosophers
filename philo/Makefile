@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 15:31:15 by wscherre          #+#    #+#              #
-#    Updated: 2024/09/02 17:39:53 by wscherre         ###   ########.fr        #
+#    Updated: 2024/09/02 19:30:48 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS    =   srcs/main.c \
-			srcs/actions.c \
-			srcs/tools.c \
-			srcs/check.c \
-			srcs/monitor.c \
-			srcs/routine.c \
+SRCS    =   main.c \
+			actions.c \
+			tools.c \
+			check.c \
+			monitor.c \
+			routine.c \
 
 OBJS    =   $(SRCS:.c=.o)
 
@@ -23,7 +23,7 @@ CC  	=   cc
 
 RM 		=  	rm -f
 
-CFLAGS  =   -Wall -Wextra -Werror -I. -MMD -pthread
+CFLAGS  =   -Wall -Wextra -Werror -pthread
 
 NAME    =   philo
 

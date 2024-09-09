@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/09/02 17:39:27 by wscherre         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:09:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
 void	*start(void *arg)
 {
@@ -33,8 +33,9 @@ void	*start(void *arg)
 		if (philo->alpha->philos_nbr == 1)
 			return (mutex_lock(&philo->alpha->m_forks[0]),
 				action_fork(philo->alpha, philo->id), NULL);
-		if (dead_check(philo->alpha))
-			return (NULL);
+		mutex_lock(&philo->alpha->m_lock);
+		if (philo->alpha->dead)
+			return (mutex_unlock(&philo->alpha->m_lock), NULL);
 		take_forks(philo->alpha, philo->id);
 	}
 	return (NULL);
@@ -47,19 +48,19 @@ void	take_forks(t_sigma *alpha, int id)
 
 	first_fork = id;
 	second_fork = id + 1;
+	mutex_unlock(&alpha->m_lock);
 	if (id == alpha->philos_nbr - 1)
 	{
 		first_fork = 0;
 		second_fork = id;
 	}
-	if (id % 2 != 0)
-		usleep(1500);
+	if (id % 2 == 0)
+		usleep(300);
 	(mutex_lock(&alpha->m_forks[first_fork]), action_fork(alpha, id));
 	(mutex_lock(&alpha->m_forks[second_fork]), action_fork(alpha, id));
 	action_eating(alpha, id);
 	(usleep(alpha->t_eat * 1000), mutex_lock(&alpha->philos[id].m_lock));
 	alpha->philos[id].last_meal = get_time();
-	alpha->philos[id].eating = 0;
 	alpha->philos[id].meal_count++;
 	mutex_unlock(&alpha->philos[id].m_lock);
 	mutex_unlock(&alpha->m_forks[first_fork]);

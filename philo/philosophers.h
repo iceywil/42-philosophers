@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:43:54 by wscherre          #+#    #+#             */
-/*   Updated: 2024/09/02 17:39:41 by wscherre         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:30:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_philo
 	int				id;
 	unsigned long	last_meal;
 	int				meal_count;
-	int				eating;
 }					t_philo;
 
 typedef struct s_sigma
@@ -61,7 +60,6 @@ void				take_forks(t_sigma *philo, int id);
 int					create_monitor(t_sigma *alpha);
 void				monitor_loop(t_sigma *alpha);
 void				*monitor(void *arg);
-int					dead_check(t_sigma *alpha);
 int					monitor_philo(t_sigma *alpha, int i, int count);
 void				mutex_lock(pthread_mutex_t *mutex);
 void				mutex_unlock(pthread_mutex_t *mutex);
