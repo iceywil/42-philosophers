@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/09/09 12:09:33 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/09 14:23:43 by wscherre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	take_forks(t_sigma *alpha, int id)
 		second_fork = id;
 	}
 	if (id % 2 == 0)
-		usleep(300);
+		usleep(1000);
 	(mutex_lock(&alpha->m_forks[first_fork]), action_fork(alpha, id));
 	(mutex_lock(&alpha->m_forks[second_fork]), action_fork(alpha, id));
 	action_eating(alpha, id);

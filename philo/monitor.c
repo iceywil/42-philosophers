@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: wscherre <wscherre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:30:23 by wscherre          #+#    #+#             */
-/*   Updated: 2024/09/02 19:28:10 by codespace        ###   ########.fr       */
+/*   Updated: 2024/09/09 14:33:09 by wscherre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int	monitor_philo(t_sigma *alpha, int i, int count)
 		- alpha->philos[i].last_meal > alpha->t_die)
 	{
 		mutex_unlock(&alpha->philos[i].m_lock);
-		printf("\033[31m%zu %d died\033[0m\n", get_time() - alpha->start, i);
+		printf("\033[31m%zu %d died\033[0m\n", get_time() - alpha->start, i
+			+ 1);
 		alpha->dead = 1;
 		mutex_unlock(&alpha->m_lock);
 		return (-1);
